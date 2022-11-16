@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+      integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <!-- CSS rules to specify families -->
+    <title>Форма регистрации</title>
+    <link rel="icon" href="/img/Logo-robot.png" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-image: url(/img/nebo.jpg);
+        font-family: "Sono", monospace;
+      }
+      h1 {
+        font-weight: 700;
+      }
+      form > .input-group {
+        transform: translateY(4px);
+        filter: drop-shadow(1px 2px 4px hsl(0deg, 0%, 0%, 0.2));
+        transition: 0.3s;
+      }
+      form > .input-group:focus-within {
+        transform: translateY(2px);
+        filter: drop-shadow(1px 2px 4px hsl(0deg, 20%, 0%, 0.4));
+      }
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
+      }
+      .key {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center">Регистрация пользователя</h1>
+      <div class="col-md-5 mx-auto mt-4">
+        <form onsubmit="sendForm(this); return false;">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <span class="material-symbols-outlined"> face </span>
+              </div>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Имя"
+              required
+              name="name"
+            />
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <span class="material-symbols-outlined"> face </span>
+              </div>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Фамилия"
+              required
+              name="lastname"
+            />
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <span class="material-symbols-outlined"> contact_mail </span>
+              </div>
+            </div>
+            <input
+              type="email"
+              class="form-control"
+              placeholder="E-mail"
+              required
+              name="email"
+            />
+            <p id="info"></p>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <span class="material-symbols-outlined"> key </span>
+              </div>
+            </div>
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Пароль"
+              required
+              id="formPass"
+              name="pass"
+            />
+            <span
+              onmousedown="formPass.type='text'; this.nextElementSibling.hidden=false; this.hidden=true;"
+              class="material-symbols-outlined key"
+              >&nbsp;visibility
+            </span>
+            <span
+              class="material-symbols-outlined"
+              hidden
+              onmouseup="formPass.type='password'; this.previousElementSibling.hidden=false; this.hidden=true;"
+              >&nbsp;visibility_off
+            </span>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" required />
+            <label class="form-check-label mb-3">
+              Даю согласие на обработку персональных данных
+            </label>
+          </div>
+          <input
+            type="submit"
+            class="btn btn-lg btn-success form-control"
+            value="Зарегистрироваться"
+          />
+        </form>
+      </div>
+    </div>
+    <script>
+      async function sendForm(form) {
+        let response = await fetch("reg_obr_16.11.php", {
+          method: "POST",
+          body: new FormData(form),
+        });
+        let result = await response.text();
+        if (result == "ok") {
+          alert("Поздравляем с успешной регистрацией!");
+        } else {
+          info.innerText = "Пользователь уже существует!";
+        }
+        // console.log(await response.text());
+      }
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
